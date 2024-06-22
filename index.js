@@ -2,12 +2,15 @@ import express from 'express';
 import OpenAI from 'openai';
 import bodyParser from 'body-parser';
 
-// Initialize Express app
 const app = express();
 const port = 3000;
 
-// Replace with your actual API key
-const apiKey = 'sk-proj-HB0Dygq9iGrvk07rUGu5T3BlbkFJ7VHwdZUaemxaU2MAphVL';
+const apiKey = process.env.OPENAI_API_KEY;
+
+if (!apiKey) {
+  console.error('Error: OPENAI_API_KEY is not set.');
+  process.exit(1);
+}
 
 const openai = new OpenAI({
   apiKey: apiKey,
@@ -25,7 +28,7 @@ app.post('/process-data', async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "Please segregate Name, Title, Email, Person location, Person LinkedIn Link, Person LinkedIn User ID, Company Name, company, company location,, connections, followers, experience."
+          content: "Please segregate Name, Title, Email search from google search engine, Person location, Person LinkedIn Link, Person LinkedIn User ID, Company Name, company website search from google search engine, company location search from google search engine, connections, followers, experience."
         },
         {
           role: "user",
@@ -63,7 +66,6 @@ app.post('/process-data', async (req, res) => {
         `experience: ${getValue('Experience')}`
       ];
 
-      // Generate a professional summary
       const summaryResponse = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
@@ -82,6 +84,7 @@ app.post('/process-data', async (req, res) => {
       });
 
       const summary = summaryResponse.choices[0]?.message?.content?.trim() || "Summary not available";
+
       customArray.push(`summary: ${summary}`);
 
       res.json({ data: customArray });
