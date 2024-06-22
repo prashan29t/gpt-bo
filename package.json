@@ -1,0 +1,17 @@
+{
+  "name": "data-extraction",
+  "version": "1.0.0",
+  "description": "A Node.js application to process data using OpenAI's ChatGPT API.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "openai": "^4.0.0",
+    "body-parser": "^1.19.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
