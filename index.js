@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 const app = express();
 const port = 3000;
 
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = 'sk-proj-HB0Dygq9iGrvk07rUGu5T3BlbkFJ7VHwdZUaemxaU2MAphVL';
 
 if (!apiKey) {
   console.error('Error: OPENAI_API_KEY is not set.');
